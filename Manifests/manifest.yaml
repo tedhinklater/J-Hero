@@ -1,5 +1,12 @@
 AddonId: J-Hero_c0fabc1d-aadb-41e8-be6c-82e27147f6e4
 Packages:
+  - Version: 1.2
+    RequiredApiVersion: 2.4.0
+    ReleaseDate: 2023-02-01
+    PackageUrl: https://github.com/Jhanlon95/J-Hero/releases/download/v1.2/J-Hero_c0fabc1d-aadb-41e8-be6c-82e27147f6e4_1_2.pthm
+    Changelog:
+          - Respects darkening/blurring of background image in Main screen
+          - Adding shadow to game name in game details
   - Version: 1.1
     RequiredApiVersion: 2.4.0
     ReleaseDate: 2023-02-01

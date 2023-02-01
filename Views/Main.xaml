@@ -271,7 +271,7 @@
                                 </Style>
                             </Grid.Style>
 
-                            <FadeImage Source="{Binding SelectedGame.DisplayBackgroundImageObject}"
+                            <FadeImage x:Name="PART_ImageBackground" Source="{Binding SelectedGame.DisplayBackgroundImageObject}"
                              RenderOptions.BitmapScalingMode="Fant" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center"
 						 VerticalAlignment="Center" Stretch="UniformToFill" >
 

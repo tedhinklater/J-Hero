@@ -1524,8 +1524,11 @@
 
                                     <TextBlock x:Name="GDDisplayName" Text="{Binding Game.Name, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamilyBlack}" FontSize="80" Foreground="White"
 					TextWrapping="Wrap" MaxHeight="150" TextTrimming="CharacterEllipsis">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                </TextBlock.Effect>
 
-				</TextBlock>
+                            </TextBlock>
 
 			</StackPanel>
 
@@ -1533,7 +1536,7 @@
                         <StackPanel.Style>
                             <Style>
                                 <Setter Property="ItemsControl.Opacity" Value="0"/>
-                                <Setter Property="ItemsControl.Margin" Value="50,-700,0,0"/>
+                                    <Setter Property="ItemsControl.Margin" Value="50,-1150,0,0"/>
                                 <Setter Property="ItemsControl.Visibility" Value="Visible"/>
                                 <Style.Triggers>
 									<!--<DataTrigger Binding="{Binding ElementName=ZoomButton,Path=IsChecked}" Value="True">
