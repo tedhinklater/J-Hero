@@ -1,0 +1,1447 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style TargetType="{x:Type Main}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Main}">
+                    <Grid x:Name="PART_MainHost"
+                          d:DesignWidth="{StaticResource DesignWidth}"
+                          d:DesignHeight="{StaticResource DesignHeight}"
+                          d:DataContext="{x:Static DesignMainViewModel.DesignIntance}"
+                          Background="#FF000000" UseLayoutRounding="True" >
+
+                        <Border x:Name="MainBackgroundBorder" Background="#A0000000" Panel.ZIndex="-45">
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Height" Value="{StaticResource DesignHeight}"/>
+                                    <Setter Property="Width" Value="{StaticResource DesignWidth}"/>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Setter Property="Opacity" Value="0"/>
+                                    <Style.Triggers>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=MainBackgroundImageButton, Path=IsChecked}" Value="False"/>
+                                                <Condition Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=MainBackgroundImageButton, Path=IsChecked}" Value="False"/>
+                                                <Condition Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:1" From="0" To="0.5"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.EnterActions>
+                                            <MultiDataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.3" From="0.5" To="0.5"/>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.3" Duration="0:0:0.6" From="0.5" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.ExitActions>
+                                        </MultiDataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                        </Border>
+
+
+                        <Border x:Name="MainScreenBorder" Background="{DynamicResource MainScreenBorderOverlay}" Panel.ZIndex="-45">
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Height" Value="{StaticResource DesignHeight}"/>
+                                    <Setter Property="Width" Value="{StaticResource DesignWidth}"/>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Setter Property="Opacity" Value="1"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=MainBackgroundBorder, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                        </Border>
+
+
+                        <Grid x:Name="MainGrid" Panel.ZIndex="-46" Width="{StaticResource DesignWidth}"
+			      VerticalAlignment="Center" >
+
+                            <Grid.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                    <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                    <Setter Property="ItemsControl.Height" Value="{StaticResource DesignHeight}"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                            <Setter Property="ItemsControl.Opacity" Value="1" />
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="ItemsControl.Opacity" Value="0.9" />
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <Border Background="{DynamicResource ButtonBackgroundBrush}">
+                                <Grid Visibility="Visible">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="6*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="6*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="6*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="6*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid>
+                                        <Grid.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="8" ScaleY="8"/>
+                                                <SkewTransform/>
+                                                <RotateTransform />
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </Grid.RenderTransform>
+                                        <Border Margin="0,77.75,0,0" Background="{DynamicResource ButtonBackgroundBrush}" Tag="False" Visibility="Visible">
+
+                                            <!--<FadeImage x:Name="Fade" Visibility="Visible" Grid.Row="1" Grid.Column="1" Source="{Binding SelectedGame.DisplayBackgroundImageObject}" 
+						Stretch="UniformToFill" IsBlurEnabled="true" BlurAmount="{Binding ElementName=SizeGridBlur, Path=ActualHeight}"
+						HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" 
+						RenderOptions.BitmapScalingMode="Fant" >
+
+                                            <FadeImage.Style>
+                                                <Style TargetType="FadeImage">
+                                                <Setter Property="Opacity" Value="1"/>
+                                                <Style.Triggers>
+
+
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </FadeImage.Style>
+
+                    			<FadeImage.CacheMode>
+                        			<BitmapCache  EnableClearType="False"
+                              			RenderAtScale="1"
+                              			SnapsToDevicePixels="False" />
+                    			</FadeImage.CacheMode>
+
+                                        <FadeImage.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                                <SkewTransform/>
+                                                <RotateTransform />
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </FadeImage.RenderTransform>
+                                    </FadeImage>-->
+
+                                        </Border>
+                                    </Grid>
+
+                                    <Grid x:Name="SizeGrid" Grid.Row="1" Grid.Column="1" Visibility="Hidden" >
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="25*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="25*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid x:Name="SizeGridSecond" Grid.Row="1" Grid.Column="1"/>
+                                        <StackPanel x:Name="SizeGridBlur" Grid.Row="1" Grid.Column="1" MinHeight="0">
+                                            <Grid Height="1"/>
+                                            <Grid Height="{Binding ElementName=SizeGridSecond, Path=ActualHeight}"/>
+                                            <Grid Height="{Binding ElementName=SizeGridSecond, Path=ActualWidth}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+
+                        <Grid x:Name="BackgroundGrid" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Center"
+			      FocusVisualStyle="{x:Null}" Panel.ZIndex="-46" >
+
+                            <Grid.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Height" Value="620"/>
+                                    <Setter Property="ItemsControl.Opacity" Value="1"/>
+                                    <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                    <Setter Property="ItemsControl.Background" Value="#00000000"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=MainBackgroundImageButton, Path=IsChecked}" Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:1" From="0" To="1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="1" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+
+                                        <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=ExtraMetadataLoader_VideoLoaderControl_NoControls_Sound, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Background" Value="#A0000000" />
+                                        </DataTrigger>
+
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+
+                                        <DataTrigger Binding="{Binding ElementName=MainBackgroundImageButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <FadeImage Source="{Binding SelectedGame.DisplayBackgroundImageObject}"
+                             RenderOptions.BitmapScalingMode="Fant" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center"
+						 VerticalAlignment="Center" Stretch="UniformToFill" >
+
+                                <FadeImage.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Opacity" Value="1"/>
+                                        <Setter Property="ItemsControl.Width" Value="{StaticResource DesignWidth}"/>
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="1" To="0"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.5" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </FadeImage.Style>
+
+                                <FadeImage.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="ScaleTransformBackgroundImage" ScaleX="1" ScaleY="1" />
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </FadeImage.RenderTransform>
+
+                            </FadeImage>
+
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="80,0,0,0">
+                                <Border x:Name="ExtraMetadataLoader_LogoLoaderControlGrid"
+												VerticalAlignment="Stretch"
+												HorizontalAlignment="Left"
+												MinHeight="{PluginSettings Plugin=ExtraMetadataLoader, Path=LogoMaxHeight, FallbackValue=0}"
+												Tag="{DynamicResource DetailsViewAllowUseOfLogos}">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable, FallbackValue=False}" Value="false">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}, FallbackValue=False}" Value="false" >
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" />
+                                </Border>
+
+                                <TextBlock x:Name="GameTitle" Text="{Binding SelectedGame.DisplayName, NotifyOnTargetUpdated=True}" FontFamily="Lato"
+									Foreground="White" FontSize="46" VerticalAlignment="Center" TextWrapping="Wrap" MaxHeight="150"
+									TextTrimming="CharacterEllipsis" FontWeight="SemiBold">
+                                    <TextBlock.Style>
+                                        <Style>
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable, FallbackValue=False}" Value="false">
+                                                    <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                    </TextBlock.Effect>
+                                    <TextBlock.Triggers>
+                                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="0" />
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1" BeginTime="0:0:0" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </TextBlock.Triggers>
+                                </TextBlock>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+
+                                    <StackPanel x:Name="PlatformSourceInfo" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Image 	x:Name="ButtonSourceImage" Source="{ThemeFileBinding SelectedGame.Source.Name, PathFormat='Icons/Source/{0}.png'}" Height="50" 
+												Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
+                                            <Image.Effect>
+                                                <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                            </Image.Effect>
+                                        </Image>
+                                        <Image 	x:Name="ButtonPlatformImage" Source="{ThemeFileBinding SelectedGame.Platforms[0].Name, PathFormat='Icons/Source/{0}.png'}" Height="50" 
+												Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="Fant">
+                                            <Image.Effect>
+                                                <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                            </Image.Effect>
+                                        </Image>
+                                        <TextBlock  Background="Transparent" Style="{DynamicResource TextBlockBaseStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+												   Text="&#xF127;" FontFamily="Segoe MDL2 Assets" FontSize="3" Margin="15,-3">
+                                            <TextBlock.Effect>
+                                                <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                            </TextBlock.Effect>
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="YearInfo" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border x:Name="YearButton" Margin="0,0,7,0" BorderBrush="White" CornerRadius="8" BorderThickness="2" Height="40">
+                                            <TextBlock x:Name="ReleaseYear" Background="Transparent" Style="{DynamicResource TextBlockBaseStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+													           Text="{Binding SelectedGame.ReleaseYear}" FontFamily="{DynamicResource FontFamily}" FontSize="20" Margin="8,0">
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="TimePlayedInfo" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border x:Name="TimePlayedButton" Margin="0,0,7,0" BorderBrush="White" CornerRadius="8" BorderThickness="2" Height="40">
+                                            <TextBlock x:Name="TimePlayed" Background="Transparent" Style="{DynamicResource TextBlockBaseStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+													           Text="{Binding SelectedGame.Playtime, Converter={StaticResource PlayTimeToStringConverter}}" 
+                                                               FontFamily="{DynamicResource FontFamily}" FontSize="20" Margin="8,0">
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <StackPanel x:Name="LastPlayedInfo" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border x:Name="LastPlayedButton" Margin="0,0,7,0" BorderBrush="White" CornerRadius="8" BorderThickness="2" Height="40">
+                                            <TextBlock x:Name="LastPlayed" Background="Transparent" Style="{DynamicResource TextBlockBaseStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+													           Text="{Binding SelectedGame.LastActivity, Converter={StaticResource DateTimeToLastPlayedConverter}}"
+                                                               FontFamily="{DynamicResource FontFamily}" FontSize="20" Margin="8,0">
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+                                    
+                                    <StackPanel x:Name="PlayStatusInfo" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Border x:Name="PlayStatusButton" Margin="0" BorderBrush="White" CornerRadius="8" BorderThickness="2" Height="40">
+                                            <TextBlock x:Name="PlayStatus" Background="Transparent" Style="{DynamicResource TextBlockBaseStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+													           Text="{Binding SelectedGame.CompletionStatus}" FontFamily="{DynamicResource FontFamily}" FontSize="20" Margin="8,0">
+                                                <TextBlock.Effect>
+                                                    <DropShadowEffect ShadowDepth="2" RenderingBias="Quality" Color="{DynamicResource BlackColor}" />
+                                                </TextBlock.Effect>
+                                            </TextBlock>
+                                        </Border>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </StackPanel>
+
+                            <Border x:Name="BackgroundBorder" Background="{DynamicResource MainScreenOverlay}"
+					Width="{StaticResource DesignWidth}" Height="{Binding ActualHeight, ElementName=BackgroundGrid}" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                                <Border.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Opacity" Value="1"/>
+                                        <Setter Property="ItemsControl.Visibility" Value="Visible"/>
+
+                                    </Style>
+                                </Border.Style>
+
+                            </Border>
+
+
+                        </Grid>
+
+
+                        <Border x:Name="AltBackgroundBorder" Background="{DynamicResource MainScreenOverlay}" Panel.ZIndex="-46"
+					Width="{StaticResource DesignWidth}" Height="{Binding ActualHeight, ElementName=BackgroundGrid}" 
+					HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                            <Border.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                    <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=GameTitle, Path=Opacity}" Value="1"/>
+                                                <Condition Binding="{Binding ElementName=GameTitle, Path=Margin}" Value="0,0,0,0"/>
+                                                <Condition Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=NewContextVideoAvailable}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:3" Duration="0:0:0.5" From="0" To="0.2"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.EnterActions>
+                                            <MultiDataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0.2" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </MultiDataTrigger.ExitActions>
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=GameTitle, Path=Opacity}" Value="1"/>
+                                                <Condition Binding="{Binding ElementName=GameTitle, Path=Margin}" Value="0,0,0,0"/>
+                                                <Condition Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=NewContextVideoAvailable}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                        </MultiDataTrigger>
+
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding ElementName=MainBackgroundImageButton, Path=IsChecked}" Value="False"/>
+                                                <Condition Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </MultiDataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                            <Border.OpacityMask>
+                                <LinearGradientBrush StartPoint="0,0.7" MappingMode="RelativeToBoundingBox" EndPoint="0,1">
+                                    <GradientStop Color="#00000000" Offset="1"/>
+                                    <GradientStop Color="#FF000000" Offset="0"/>
+                                </LinearGradientBrush>
+                            </Border.OpacityMask>
+
+                        </Border>
+
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="-45">
+
+                            <StackPanel.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                    <Setter Property="ItemsControl.Visibility" Value="Visible"/>
+                                    <Setter Property="ItemsControl.Margin" Value="70,300,0,0"/>
+                                    <Style.Triggers>
+
+
+                                        <DataTrigger Binding="{Binding ElementName=Id, Path=Opacity}" Value="1">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.7" From="0" To="1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="1" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+
+                                        <DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsLogoAvailable}" Value="False">
+                                            <Setter Property="ItemsControl.Margin" Value="70,150,0,0" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                            <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                            <Setter Property="ItemsControl.Visibility" Value="Hidden" />
+                                        </DataTrigger>
+
+
+                                    </Style.Triggers>
+                                </Style>
+                            </StackPanel.Style>
+
+                            <StackPanel HorizontalAlignment="Left" Margin="-2,0,0,0" Width="700" MaxHeight="300" Visibility="Visible">
+
+                                <!--<StackPanel>
+
+                                    <TextBlock x:Name="GameTitle" Text="{Binding SelectedGame.DisplayName, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamily}"
+						Foreground="White" FontSize="36" VerticalAlignment="Center" TextWrapping="Wrap" MaxHeight="150"
+						TextTrimming="CharacterEllipsis" FontWeight="SemiBold">
+
+				<TextBlock.Triggers>
+					<EventTrigger RoutedEvent="Binding.TargetUpdated">
+				<BeginStoryboard>
+					<Storyboard>
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="0" />
+						<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1" BeginTime="0:0:0" />
+					</Storyboard>
+				</BeginStoryboard>
+					</EventTrigger>
+				</TextBlock.Triggers>
+
+
+                            <TextBlock.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                    <Style.Triggers>
+
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="False">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Storyboard.TargetProperty="Margin" BeginTime="0:0:0" Duration="0:0:0" From="0,0,0,0" To="0,0,0,0.01"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0" From="0,0,0,0.01" To="0,0,0,0"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+			</TextBlock>
+			</StackPanel>
+
+
+                                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="0,5,0,0" Visibility="Visible">
+
+                                              <TextBlock Style="{DynamicResource TextBlockBaseStyle}"
+                                               Text="{Binding SelectedGame.Platforms[0]}" Margin="0,0,20,0"/>
+
+                                            </StackPanel>-->
+
+
+                                <StackPanel Margin="0,10,0,0" Width="650" MaxHeight="120" Visibility="Collapsed">
+
+                                    <TextBlock x:Name="Description" Focusable="False" Text="{Binding SelectedGame.Description}" 
+				FontSize="20" FontFamily="{DynamicResource FontFamily}" FontWeight="SemiBold" HorizontalAlignment="Left" TextWrapping="Wrap" TextTrimming="WordEllipsis"
+				Foreground="#BFEAD3CF" Height="60" Width="700" Padding="0,5,0,5" >
+                                    </TextBlock>
+
+                                    <StackPanel.Effect>
+                                        <DropShadowEffect ShadowDepth="1" Color="Black"
+                                                RenderingBias="Quality" BlurRadius="0" Opacity="0.8"/>
+                                    </StackPanel.Effect>
+
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        <Grid x:Name="PART_ViewHost">
+
+                            <Grid.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                    <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=Visibility}" Value="Visible">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.5" From="0" To="1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+
+                            <Grid Grid.Row="0" Background="#00000000" 
+                                  Height="100" Margin="0,0,0,0" FocusVisualStyle="{x:Null}" >
+
+                                <Grid.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Opacity" Value="1"/>
+
+                                    </Style>
+                                </Grid.Style>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="20" />
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel x:Name="ControllerButtons" Grid.Column="1" Width="Auto" Orientation="Horizontal" VerticalAlignment="Center">
+
+                                    <!--Install-->
+                                    <ButtonEx x:Name="PART_ButtonInstall"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCInstallGame}" />
+                                    <!--Play-->
+                                    <ButtonEx x:Name="PART_ButtonPlay"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCPlayGame}" />
+                                    <!--Details-->
+                                    <ButtonEx x:Name="PART_ButtonDetails"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCGameDetails}" />
+                                    <!--Search-->
+                                    <ButtonEx x:Name="PART_ButtonSearch"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCSearchLabel}" />
+                                    <!--Options-->
+                                    <ButtonEx x:Name="PART_ButtonGameOptions"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCGameOptions}" />
+                                    <!--Filter-->
+                                    <ButtonEx x:Name="PART_ButtonFilter"
+                                              Style="{DynamicResource ButtonBottomMenu}"
+                                              Content="{DynamicResource LOCFilter}" />
+                                </StackPanel>
+
+                                <ContentControl x:Name="PART_ElemBatteryStatus" Focusable="False" FontSize="42"
+                                            VerticalAlignment="Center" Margin="10,3,10,0"
+                                            Grid.Column="2">
+                                    <ContentControl.Style>
+                                        <Style TargetType="ContentControl">
+                                            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding PowerStatus.Charge}" Value="Critical">
+                                                    <Setter Property="Content" Value="{DynamicResource BatteryStatusCritical}" />
+                                                    <Setter Property="Foreground" Value="Red" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding PowerStatus.Charge}" Value="Low">
+                                                    <Setter Property="Content" Value="{DynamicResource BatteryStatusLow}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding PowerStatus.Charge}" Value="Medium">
+                                                    <Setter Property="Content" Value="{DynamicResource BatteryStatusMedium}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding PowerStatus.Charge}" Value="High">
+                                                    <Setter Property="Content" Value="{DynamicResource BatteryStatusHigh}" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding PowerStatus.IsCharging}" Value="True">
+                                                    <Setter Property="Content" Value="{DynamicResource BatteryStatusCharging}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ContentControl.Style>
+
+                                    <!--<ContentControl.Effect>
+                                    <DropShadowEffect ShadowDepth="1" Color="Black"
+                                                RenderingBias="Quality" BlurRadius="0" Opacity="1"/>
+                                </ContentControl.Effect>-->
+
+                                </ContentControl>
+
+
+                                <TextBlock x:Name="PART_TextBatteryPercentage" Style="{DynamicResource TextBlockBaseStyle}"
+                                       VerticalAlignment="Center" Margin="0,0,20,0" FontFamily="{DynamicResource FontFamilyBlack}"
+                                       Grid.Column="3">
+                                </TextBlock>
+
+
+                                <TextBlock x:Name="PART_TextClock" Style="{DynamicResource TextBlockBaseStyle}" FontFamily="{DynamicResource FontFamilyBlack}"
+                                       VerticalAlignment="Center" FontSize="55" FontWeight="SemiBold" Margin="20,0,10,0"
+                                       Grid.Column="9">
+                                </TextBlock>
+
+                                <ButtonEx x:Name="PART_ButtonProgramUpdate" VerticalAlignment="Center"
+                                          Margin="20,0,5,0" Height="60" Width="60"
+                                          Style="{DynamicResource ButtonMenu}"                                          
+                                          Grid.Column="4">
+                                    <ButtonEx.Content>
+                                        <TextBlock Text="&#xef08;" FontFamily="{StaticResource FontIcoFont}"                                                   
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2"
+                                                   FontSize="34" />
+                                    </ButtonEx.Content>
+                                </ButtonEx>
+
+                                <ButtonEx x:Name="PART_ButtonNotifications" VerticalAlignment="Center"
+                                          Margin="20,0,5,0" Height="60" Width="60" Focusable="True" Grid.Column="5" >
+                                    <Button.Content>
+                                        <Grid>
+                                            <TextBlock Text="&#xeea3;" FontFamily="{StaticResource FontIcoFont}"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                       FontSize="38" Foreground="OrangeRed" >
+                                            </TextBlock>
+                                        </Grid>
+                                    </Button.Content>
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource ButtonMenu}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Api Notifications.Count}" Value="0">
+                                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </ButtonEx>
+
+
+                                <CheckBoxEx x:Name="ChangeViewButton" Margin="20,0,0,0" Height="60" Width="60"
+											IsChecked="{Settings Fullscreen.HorizontalLayout, Mode=TwoWay}"
+                                            Style="{DynamicResource ChangeViewButton}" Grid.Column="7" Visibility="Collapsed" />
+
+
+                                <ButtonEx x:Name="PART_ButtonMainMenu" VerticalAlignment="Center"
+                                          Margin="20,0,0,0" Height="60" Width="60"
+                                          Style="{DynamicResource ButtonMenu}"                                          
+                                          Grid.Column="8">
+                                    <ButtonEx.Content>
+                                        <TextBlock Text="&#xE700;" FontFamily="Segoe MDL2 Assets" FontSize="40"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </ButtonEx.Content>
+                                </ButtonEx>
+
+                            </Grid>
+
+
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+
+                                <StackPanel.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Margin" Value="75,260,0,0"/>
+                                        <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                        <Setter Property="ItemsControl.VerticalAlignment" Value="Center"/>
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ViewHost, Path=Visibility}" Value="Visible">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.5" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+
+                                <TextBlock Text="Sort by:" FontFamily="{DynamicResource FontFamily}" FontSize="24" Foreground="White" VerticalAlignment="Center"
+						HorizontalAlignment="Left" FontWeight="Light" Margin="0,0,5,0"/>
+
+                                <TextBlock Text="{Binding ActiveFilterPreset.Name, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamily}" FontSize="24" Foreground="White" VerticalAlignment="Center"
+						HorizontalAlignment="Left" MaxWidth="800" TextTrimming="WordEllipsis" Margin="0,0,0,0"/>
+
+                            </StackPanel>
+
+
+                            <Grid Grid.Row="1" Grid.RowSpan="3">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                        <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                        <Setter Property="ItemsControl.Height" Value="Auto"/>
+                                        <Setter Property="ItemsControl.Width" Value="{StaticResource DesignWidth}"/>
+                                        <Setter Property="ItemsControl.VerticalAlignment" Value="Bottom"/>
+                                        <Style.Triggers>
+
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ViewHost, Path=Visibility}" Value="Visible">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.5" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                                <Setter Property="ItemsControl.Height" Value="480" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                <Setter Property="ItemsControl.Width" Value="1820"/>
+                                                <Setter Property="ItemsControl.Margin" Value="0,0,0,80"/>
+                                                <Setter Property="ItemsControl.VerticalAlignment" Value="Center"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                                <Setter Property="ItemsControl.Height" Value="0" />
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <StackPanel x:Name="FilterPanel" Grid.Row="0" Orientation="Horizontal">
+
+                                    <StackPanel.Style>
+                                        <Style>
+                                            <Setter Property="ItemsControl.Visibility" Value="Hidden"/>
+                                            <Setter Property="ItemsControl.Height" Value="Auto"/>
+                                            <Style.Triggers>
+
+                                                <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="true">
+                                                    <Setter Property="ItemsControl.Height" Value="0"/>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                    <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
+                                                    <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                                    <Setter Property="ItemsControl.Visibility" Value="Visible"/>
+                                                </DataTrigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
+
+                                    <FilterPresetSelector x:Name="PART_ItemsFilterPresets" Margin="0,0,0,0"
+						FocusVisualStyle="{x:Null}" />
+
+
+                                    <!--<ButtonEx x:Name="PART_ButtonFilter" VerticalAlignment="Center"
+                                          Style="{DynamicResource ButtonSquare}" 
+                                          Margin="2,0,9,0" Height="60" Width="60">
+
+                                            <TextBlock Text="&#xef29;" FontFamily="{StaticResource FontIcoFont}" FontSize="32"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,0,0"/>
+
+                                </ButtonEx>
+
+
+                                <ButtonEx x:Name="PART_ButtonSearch" VerticalAlignment="Center"
+                                          Style="{DynamicResource ButtonMenu}" 
+                                          Margin="0,0,0,0" Height="60" Width="60">
+
+                                            <TextBlock Text="&#xed11;" FontFamily="{StaticResource FontIcoFont}" FontSize="28"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                                </ButtonEx>-->
+
+                                </StackPanel>
+
+
+
+                                <Grid Grid.Row="2">
+
+                                    <Grid.Style>
+                                        <Style>
+                                            <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                            <Setter Property="ItemsControl.Height" Value="Auto"/>
+                                            <Style.Triggers>
+
+                                                <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                                    <Setter Property="ItemsControl.Height" Value="460"/>
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                    <Setter Property="ItemsControl.Margin" Value="0,20,0,0"/>
+                                                </DataTrigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+
+                                    <ListBoxEx x:Name="PART_ListGameItems"
+                            Background="#00000000" BorderThickness="0" FocusVisualStyle="{x:Null}"
+                            KeyboardNavigation.DirectionalNavigation="Once" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+         		    VirtualizingPanel.IsVirtualizing="True"
+			    ScrollViewer.VerticalScrollBarVisibility="Disabled" RenderTransformOrigin="0.5,0.5">
+
+                                        <ListBox.Style>
+                                            <Style>
+                                                <Setter Property="ItemsControl.Margin" Value="0,0,0,0"/>
+                                                <Setter Property="ItemsControl.Height" Value="Auto"/>
+                                                <Setter Property="ItemsControl.VerticalAlignment" Value="Center"/>
+                                                <Style.Triggers>
+
+                                                    <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                                        <Setter Property="ItemsControl.Height" Value="460"/>
+                                                    </DataTrigger>
+
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ListBox.Style>
+
+                                    </ListBoxEx>
+
+                                </Grid>
+
+                            </Grid>
+
+                            <StackPanel Grid.Row="1">
+
+                                <StackPanel.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Margin" Value="12.5,50,0,0"/>
+                                        <Setter Property="ItemsControl.HorizontalAlignment" Value="Center"/>
+                                        <Setter Property="ItemsControl.VerticalAlignment" Value="Center"/>
+                                        <Setter Property="ItemsControl.Visibility" Value="Visible"/>
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="false">
+                                                <Setter Property="ItemsControl.Focusable" Value="False"/>
+                                                <Setter Property="ItemsControl.Height" Value="0"/>
+                                                <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                                <Setter Property="ItemsControl.Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                                <Setter Property="ItemsControl.Focusable" Value="False"/>
+                                                <Setter Property="ItemsControl.Height" Value="0"/>
+                                                <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+
+                                <FilterPresetSelector x:Name="ALTItemsFilterPresets" FocusVisualStyle="{x:Null}" />
+
+                            </StackPanel>
+
+
+
+                            <StackPanel Grid.RowSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#AA000000" Panel.ZIndex="1">
+                                <StackPanel.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemFilters, Path=Visibility}" Value="Visible">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ElemFiltersAdditional, Path=Visibility}" Value="Visible">
+                                                <Setter Property="ItemsControl.Visibility" Value="Visible" />
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
+                            </StackPanel>
+
+
+                            <TextBlock Grid.Row="1" FontSize="40"
+                                       Text="{DynamicResource LOCNoGamesFound}"
+                                       TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                        <Setter Property="Opacity" Value="0" />
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ViewHost, Path=Opacity}" Value="1">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.5" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="0"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding Items.Count, ElementName=PART_ListGameItems}" Value="0">
+                                                <Setter Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+
+                            <Grid Grid.Row="2" VerticalAlignment="Top" Background="#00000000" Height="100" >
+
+                                <Grid.Style>
+                                    <Style>
+                                        <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                        <Style.Triggers>
+
+                                            <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=Visibility}" Value="Visible">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0.5" Duration="0:0:0.5" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="0"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
+
+                                <!--<Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>-->
+
+
+                                <Grid Width="Auto" Height="60" Margin="0,0,10,10" HorizontalAlignment="Right">
+                                    <Border CornerRadius="15" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}" Background="#FF252525">
+                                        <Border.Effect>
+                                            <DropShadowEffect Opacity="0.75" BlurRadius="15" ShadowDepth="0"/>
+                                        </Border.Effect>
+                                        <Border.CacheMode>
+                                            <BitmapCache RenderAtScale="2" />
+                                        </Border.CacheMode>
+                                    </Border>
+                                    <StackPanel Grid.ColumnSpan="2" x:Name="PART_ElemSearchActive"
+												VerticalAlignment="Center" HorizontalAlignment="Stretch"
+												Margin="20,0,20,5" Orientation="Horizontal">
+                                        <TextBlock  FontSize="18" Margin="10,-10,10,-10"                                                 
+													TextAlignment="Center" VerticalAlignment="Center"
+													Style="{DynamicResource TextBlockBaseStyle}"
+													Text="{DynamicResource LOCGameListSearchResults}"/>
+                                        <TextBlock  Foreground="White" VerticalAlignment="Center"
+													TextAlignment="Center" FontSize="18" Margin="10,0,10,0" 
+													Style="{DynamicResource TextBlockBaseStyle}"
+													Text="{Binding AppSettings.Fullscreen.FilterSettings.Name}"/>
+                                    </StackPanel>
+                                </Grid>
+
+                                <!--<TextBlock Grid.ColumnSpan="2" x:Name="PART_ElemExtraFilterActive"
+                                       FontSize="18" Margin="70,50,0,0"
+                                       VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                                       TextAlignment="Center"
+                                       Style="{DynamicResource TextBlockBaseStyle}"
+                                       Text="{DynamicResource LOCGameListExtraFiltered}"/>-->
+
+                                <Grid Width="Auto" Height="60" Margin="0,0,10,-10" HorizontalAlignment="Right">
+                                    <Border CornerRadius="15" BorderBrush="{DynamicResource GridItemBorderBrush}" Opacity="{DynamicResource GridContainerOpacity}" Background="#FF252525">
+                                        <Border.Effect>
+                                            <DropShadowEffect Opacity="0.75" BlurRadius="15" ShadowDepth="0"/>
+                                        </Border.Effect>
+                                        <Border.CacheMode>
+                                            <BitmapCache RenderAtScale="2" />
+                                        </Border.CacheMode>
+                                    </Border>
+                                    <StackPanel x:Name="PART_ElemProgressIndicator" Orientation="Horizontal"
+											Grid.Column="3" VerticalAlignment="Center" Margin="0">
+                                        <TextBlock x:Name="PART_TextProgressTooltip" 
+											   Margin="20,-0,20,0" FontSize="20" VerticalAlignment="Center"
+											   Style="{DynamicResource TextBlockBaseStyle}"/>
+                                        <ContentControl Style="{DynamicResource ProgressIndicator}" Focusable="False"
+													Margin="0,0,20,0" Height="38" Width="38" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                        </Grid>
+
+
+                        <!--Mainscreen Logo-->
+                        <!--<Grid Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Height="225" Width="550" Panel.ZIndex="-45" >
+
+                            <Grid.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Margin" Value="70,50,0,0"/>
+                                    <Setter Property="ItemsControl.Opacity" Value="0"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ListGameItems, Path=Visibility}" Value="Visible">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" BeginTime="0:0:0" Duration="0:0:0.5" From="0" To="1"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="1" To="0"/>
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding ElementName=Id, Path=Opacity}" Value="1">
+                                                <DataTrigger.EnterActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:1" From="70,150,0,0" To="70,50,0,0">
+							<ThicknessAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+                                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1"/>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.EnterActions>
+                                                <DataTrigger.ExitActions>
+                                                    <BeginStoryboard>
+                                                        <Storyboard>
+                                                            <ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.7" From="70,50,0,0" To="70,50,0,0">
+							<ThicknessAnimation.EasingFunction><CubicEase EasingMode="EaseOut"/></ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+                                                        </Storyboard>
+                                                    </BeginStoryboard>
+                                                </DataTrigger.ExitActions>
+                                            </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding ElementName=PART_ElemGameDetails, Path=Visibility}" Value="Visible">
+                                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="False">
+                                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding ElementName=LogoTrigger, Path=Opacity}" Value="0">
+                                                        <Setter Property="ItemsControl.Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+					<ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" Width="500" MaxHeight="175" Visibility="Collapsed"/>
+
+
+                                                                    <TextBlock Name="LogoPath" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
+                                                                        <TextBlock.Style>
+                                                                            <Style TargetType="TextBlock">
+                                                                                <Setter Property="Text">
+                                                                                    <Setter.Value>
+                                                                                        <MultiBinding StringFormat="{}{0}{1}{2}{3}">
+                                                                                            <Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+                                                                                            <Binding Source="\ExtraMetadata\games\"/>
+                                                                                            <Binding Path="SelectedGame.Id"/>
+                                                                                            <Binding Source="\logo.png" />
+                                                                                        </MultiBinding>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </TextBlock.Style>
+                                                                    </TextBlock>
+
+                                                                        <Image Name="LogoImage" Width="500" Height="175" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant" 
+                                                                           VerticalAlignment="Center" HorizontalAlignment="Left" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}">
+                                                                            <Image.Style>
+                                                                                <Style TargetType="Image">
+                                                                                    <Setter Property="Source" Value="{Binding ElementName=LogoPath, Path=Text}"/>
+                                                                                    <Style.Triggers>
+
+                                                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="">                                                                                            
+											    <Setter Property="Source" Value="{Binding ElementName=LogoPath, Path=Text, Converter={StaticResource ImageStringToImageConverter}}"/>
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+                                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                        </DataTrigger>
+                                                                                        <DataTrigger Binding="{Binding ElementName-Id, Path=Opacity}" Value="0">
+                                                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                                                        </DataTrigger>
+
+                                                                                    </Style.Triggers>
+                                                                                </Style>
+                                                                            </Image.Style>
+                                                                        </Image>
+
+
+                        			</Grid>-->
+
+
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,42,0"
+						x:Name="Id" Text="{Binding SelectedGame.Id, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamily}" FontSize="26" Foreground="#00000000">
+
+                            <TextBlock.Triggers>
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="0" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" From="0" To="1" BeginTime="0:0:0" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </TextBlock.Triggers>
+
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,42,0"
+						x:Name="LogoTrigger" Text="{Binding SelectedGame.Id, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamily}" FontSize="26" Foreground="#00000000">
+
+                            <TextBlock.Triggers>
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="0" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" From="0" To="1" BeginTime="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </TextBlock.Triggers>
+
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+                        <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,42,0"
+						x:Name="MusicTrigger" Text="{Binding SelectedGame.Id, NotifyOnTargetUpdated=True}" FontFamily="{DynamicResource FontFamily}" FontSize="26" Foreground="#00000000">
+
+                            <TextBlock.Triggers>
+                                <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0" To="0" />
+                                            <DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.1" From="0" To="1" BeginTime="0:0:1.7" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </TextBlock.Triggers>
+
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+
+                        </TextBlock>
+
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Panel.ZIndex="1">
+
+                            <Filters x:Name="PART_ElemFilters"
+                                          Margin="0,0,0,0" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle" 
+					  Focusable="False"/>
+
+                            <FiltersAdditional x:Name="PART_ElemFiltersAdditional"
+                                          Margin="0,0,0,0" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle"  
+					  Focusable="False" />
+
+                            <ContentControl x:Name="PART_ContentFilterItems"
+                                          	Margin="0,0,0,0" KeyboardNavigation.DirectionalNavigation="Cycle" KeyboardNavigation.TabNavigation="Cycle" 
+						Focusable="False" />
+
+                        </StackPanel>
+
+                        <Border x:Name="FiltersBorder" Background="#A0000000" >
+
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="Height" Value="{StaticResource DesignHeight}"/>
+                                    <Setter Property="Width" Value="{StaticResource DesignWidth}"/>
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+
+                                        <DataTrigger Binding="{Binding ElementName=PART_ContentFilterItems, Path=Visibility}" Value="Visible">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+
+                        </Border>
+
+                        <CheckBoxEx x:Name="MainBackgroundImageButton" Margin="20,0,5,0" Height="60" Width="60"
+					IsChecked="{Settings Fullscreen.EnableMainBackgroundImage, Mode=TwoWay}"
+                                            Style="{DynamicResource MainBackgroundImageButton}" Visibility="Hidden" Focusable="False"/>
+
+                        <GameDetails x:Name="PART_ElemGameDetails" Grid.RowSpan="3"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" KeyboardNavigation.TabNavigation="Local"/>
+
+                        <GameStatus x:Name="PART_ElemGameStatus" Grid.RowSpan="3"
+                                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

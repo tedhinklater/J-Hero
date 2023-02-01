@@ -1,0 +1,174 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"                    
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    mc:Ignorable="d">
+
+    <Style x:Key="ButtonGameStatusAction" BasedOn="{StaticResource {x:Type ButtonEx}}" TargetType="ButtonEx">
+        <Setter Property="Margin" Value="0,5,0,5" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="100" />
+    </Style>
+
+    <Style TargetType="{x:Type GameStatus}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GameStatus}">	
+                    <Grid Background="#00000000"
+                          x:Name="PART_ViewHost"
+                          d:DesignWidth="{StaticResource DesignWidth}"
+                          d:DesignHeight="{StaticResource DesignHeight}"
+                          d:DataContext="{x:Static DesignMainViewModel.DesignSelectedGameIntance}"
+                          KeyboardNavigation.DirectionalNavigation="Contained"
+                          KeyboardNavigation.TabNavigation="Contained">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+							<StackPanel Grid.Row="1" Grid.Column="1">
+								<StackPanel.Style>
+									<Style TargetType="StackPanel">
+										<Setter Property="Visibility" Value="Collapsed" />
+										<Setter Property="Opacity" Value="0" />
+										<Style.Triggers>
+											<DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsAnyLogoAvailable, FallbackValue=True}" Value="True">
+												<Setter Property="Visibility" Value="Visible" />
+											</DataTrigger>
+											<DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
+												<DataTrigger.EnterActions>
+													<BeginStoryboard>
+														<Storyboard>
+															<ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:1" From="0,150,0,0" To="0">
+																<ThicknessAnimation.EasingFunction>
+																	<CubicEase EasingMode="EaseOut"/>
+																</ThicknessAnimation.EasingFunction>
+															</ThicknessAnimation>
+															<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1"/>
+														</Storyboard>
+													</BeginStoryboard>
+												</DataTrigger.EnterActions>
+												<DataTrigger.ExitActions>
+													<BeginStoryboard>
+														<Storyboard>
+															<ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.7" From="0" To="0,50,0,0">
+																<ThicknessAnimation.EasingFunction>
+																	<CubicEase EasingMode="EaseOut"/>
+																</ThicknessAnimation.EasingFunction>
+															</ThicknessAnimation>
+														</Storyboard>
+													</BeginStoryboard>
+												</DataTrigger.ExitActions>
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</StackPanel.Style>
+								<ContentControl x:Name="ExtraMetadataLoader_LogoLoaderControl" Width="Auto" Height="Auto" MaxWidth="800" MaxHeight="250" HorizontalAlignment="Center" Visibility="Collapsed"/>
+
+								<TextBlock Name="LogoPathGD" Tag="{DynamicResource ExtraMetadataPath}" Visibility="Collapsed">
+									<TextBlock.Style>
+										<Style TargetType="TextBlock">
+											<Setter Property="Text">
+												<Setter.Value>
+													<MultiBinding StringFormat="{}{0}{1}{2}{3}">
+														<Binding RelativeSource="{RelativeSource Self}" Path="Tag" />
+														<Binding Source="\ExtraMetadata\games\"/>
+														<Binding Path="Game.Id"/>
+														<Binding Source="\logo.png" />
+													</MultiBinding>
+												</Setter.Value>
+											</Setter>
+										</Style>
+									</TextBlock.Style>
+								</TextBlock>
+
+								<FadeImage Name="LogoImageGD" Width="Auto" Height="Auto" MaxWidth="800" MaxHeight="250" Stretch="Uniform" RenderOptions.BitmapScalingMode="Fant"
+								   VerticalAlignment="Center" HorizontalAlignment="Center" Tag="{DynamicResource UseAbsoluteExtraMetadataPath}">
+									<FadeImage.Style>
+										<Style TargetType="FadeImage">
+											<Setter Property="Source" Value="{Binding ElementName=LogoPathGD, Path=Text}"/>
+											<Style.Triggers>
+												<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="">
+													<Setter Property="Source" Value="{Binding ElementName=LogoPathGD, Path=Text, Converter={StaticResource ImageStringToImageConverter}}"/>
+												</DataTrigger>
+												<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="false">
+													<Setter Property="Visibility" Value="Collapsed"/>
+												</DataTrigger>
+											</Style.Triggers>
+										</Style>
+									</FadeImage.Style>
+								</FadeImage>
+							</StackPanel>
+									
+						<StackPanel Grid.Row="1" Grid.Column="1">
+							<StackPanel.Style>
+								<Style TargetType="StackPanel">
+									<Setter Property="Visibility" Value="Visible" />
+									<Style.Triggers>
+										<DataTrigger Binding="{PluginSettings Plugin=ExtraMetadataLoader, Path=IsAnyLogoAvailable, FallbackValue=True}" Value="True">
+											<Setter Property="Visibility" Value="Collapsed" />
+										</DataTrigger>
+										<DataTrigger Binding="{Binding ElementName=PART_ElemGameStatus, Path=Visibility}" Value="Visible">
+											<DataTrigger.EnterActions>
+												<BeginStoryboard>
+													<Storyboard>
+														<ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:1" From="0,150,0,0" To="0">
+															<ThicknessAnimation.EasingFunction>
+																<CubicEase EasingMode="EaseOut"/>
+															</ThicknessAnimation.EasingFunction>
+														</ThicknessAnimation>
+														<DoubleAnimation Storyboard.TargetProperty="Opacity" Duration="0:0:0.7" From="0" To="1"/>
+													</Storyboard>
+												</BeginStoryboard>
+											</DataTrigger.EnterActions>
+											<DataTrigger.ExitActions>
+												<BeginStoryboard>
+													<Storyboard>
+														<ThicknessAnimation Storyboard.TargetProperty="Margin" Duration="0:0:0.7" From="0" To="0,150,0,0">
+															<ThicknessAnimation.EasingFunction>
+																<CubicEase EasingMode="EaseOut"/>
+															</ThicknessAnimation.EasingFunction>
+														</ThicknessAnimation>
+													</Storyboard>
+												</BeginStoryboard>
+											</DataTrigger.ExitActions>
+										</DataTrigger>
+									</Style.Triggers>
+								</Style>
+							</StackPanel.Style>
+							<Border BorderBrush="{DynamicResource GridItemBorderBrush}" Width="Auto" Opacity="{DynamicResource GridContainerOpacity}" Background="#00252525">
+								<Border.Effect>
+									<DropShadowEffect Opacity="0.75" BlurRadius="15" ShadowDepth="0"/>
+								</Border.Effect>
+								<Border.CacheMode>
+									<BitmapCache RenderAtScale="2" />
+								</Border.CacheMode>
+							<Image x:Name="PART_ImageCover"
+								   RenderOptions.BitmapScalingMode="Fant"
+								   Height="350" HorizontalAlignment="Center" />
+							</Border>
+						</StackPanel>
+
+                        <!--<TextBlock Name="PART_TextStatus" TextWrapping="Wrap"
+                                   Style="{StaticResource TextBlockBaseStyle}"
+                                   HorizontalAlignment="Center" Margin="0,20,0,20"                                   
+                                   Grid.Row="2" Grid.Column="1"/>-->
+
+                        <!--<StackPanel Name="PART_PanelActionButtons" Orientation="Horizontal"
+                                    HorizontalAlignment="Center"
+                                    Grid.Row="3" Grid.Column="1"/>-->
+									
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

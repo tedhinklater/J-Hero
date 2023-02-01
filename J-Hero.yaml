@@ -1,0 +1,8 @@
+AddonId: McHERO
+Packages:
+  - Version: 1.0.0
+    RequiredApiVersion: 2.4.0
+    ReleaseDate: 2023-02-01
+    PackageUrl: https://github.com/hanlonj/J-Hero/releases/download/1.0.0/J-Hero.pthm
+    Changelog:
+          - Initial first release

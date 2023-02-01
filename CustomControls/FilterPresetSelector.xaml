@@ -1,0 +1,168 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="ItemFilterQuickPreset" TargetType="CheckBoxEx">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+		<Setter Property="Foreground" Value="White" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBoxEx">
+
+					<Grid x:Name="GridBox" Margin="0,45,0,0" UseLayoutRounding="True" > 
+
+                            <Grid.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.Opacity" Value="1"/>
+                                    <Setter Property="ItemsControl.Margin" Value="0.5,0,0.5,0"/>
+                                    <Setter Property="ItemsControl.Width" Value="Auto"/>	
+                                    <Setter Property="ItemsControl.MinWidth" Value="140"/>	
+                                    <Setter Property="ItemsControl.Height" Value="80"/>
+                                    <Style.Triggers>
+
+                                                    <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                                        <Setter Property="ItemsControl.Margin" Value="0.5,0,0.5,0" />
+                                    			<Setter Property="ItemsControl.MinWidth" Value="150"/>	
+												<Setter Property="ItemsControl.Width" Value="Auto"/>
+                                    			<Setter Property="ItemsControl.Height" Value="75"/>
+                                    			<Setter Property="ItemsControl.Opacity" Value="0.55"/>
+                                                    </DataTrigger>
+
+                                    </Style.Triggers>                                
+				</Style>
+                            </Grid.Style>
+
+
+ 						<!--<Border x:Name="MainBorder" Margin="3,3,3,5" BorderThickness="6,6,6,0" Opacity="0" CornerRadius="14,14,0,0" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" Visibility="Collapsed" >
+							</Border>-->
+
+						<Border x:Name="NormalBorder" Margin="1" BorderThickness="3,3,3,0" CornerRadius="14,14,0,0" Background="{DynamicResource ButtonBackgroundBrush}" Tag="False" Visibility="Visible">
+							</Border>
+
+						<Border x:Name="FlashMenuBorder" Margin="8,8,8,5" CornerRadius="10,10,0,0" Background="{DynamicResource ButtonBackgroundBrush}" Tag="False" Visibility="Collapsed">
+							</Border>
+
+							<Image x:Name="FilterIcon" RenderOptions.BitmapScalingMode="Fant" RenderTransformOrigin="0.5,0.5" Margin="17,23,17,17"
+						 	Source="{ThemeFileBinding Name, PathFormat='Icons/Filter/{0}.png'}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+					 	
+						 <Viewbox StretchDirection="DownOnly" Stretch="Uniform" >
+
+						<TextBlock Text="{Binding Name}" FontWeight="SemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"
+								Foreground="White" x:Name="TextContent" Panel.ZIndex="1" Margin="10,0,10,0" Padding="17" FontSize="20">
+							<TextBlock.Style>
+								<Style TargetType="TextBlock">
+									<Setter Property="Visibility" Value="Collapsed"/>
+									<Style.Triggers>
+
+										<DataTrigger Binding="{Binding ElementName=FilterIcon, Path=Source}" Value="{x:Null}">
+											<Setter Property="Visibility" Value="Visible"/>
+										</DataTrigger>
+
+									</Style.Triggers>
+								</Style>
+							</TextBlock.Style>
+                        			</TextBlock>
+
+						</Viewbox>
+					</Grid>
+
+                    <ControlTemplate.Triggers>
+						<Trigger Property="IsFocused" Value="True">	
+							<Setter Property="ItemsControl.MinWidth" Value="180" TargetName="GridBox" />	
+							<Setter Property="ItemsControl.Height" Value="100" TargetName="GridBox" />	
+							<Setter Property="ItemsControl.Margin" Value="0.5,0,0.5,-20" TargetName="GridBox" />
+							<Setter Property="Opacity" Value="0.9" TargetName="GridBox" />
+							<!--<Setter Property="Tag" Value="True" TargetName="MainBorder" />-->
+							<Setter Property="Tag" Value="True" TargetName="FlashMenuBorder" />
+							<!--<Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />-->
+							<Setter Property="Visibility" Value="Collapsed" TargetName="NormalBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />	
+							<Setter Property="Opacity" Value="0.8" TargetName="TextContent" />	
+							
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="False">
+							<Setter Property="Background" Value="{DynamicResource FilterBackgroundBrush}" TargetName="FlashMenuBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />	
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+							<Setter Property="Opacity" Value="1" TargetName="GridBox" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+							<Setter Property="Background" Value="{DynamicResource ButtonBackgroundBrush}" TargetName="FlashMenuBorder" />
+							<Setter Property="Margin" Value="8,8,8,-14" TargetName="FlashMenuBorder" />
+							<!--<Setter Property="Margin" Value="3,3,3,2" TargetName="MainBorder" />-->
+							<Setter Property="Visibility" Value="Visible" TargetName="FilterIcon" />
+							<Setter Property="Opacity" Value="1" TargetName="TextContent" />
+                        </Trigger>
+
+
+                        <Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Opacity" Value="1" TargetName="GridBox" />
+							<!--<Setter Property="Tag" Value="True" TargetName="MainBorder" />-->
+							<!--<Setter Property="Visibility" Value="Visible" TargetName="MainBorder" />-->
+							<Setter Property="Visibility" Value="Collapsed" TargetName="NormalBorder" />
+							<Setter Property="Visibility" Value="Visible" TargetName="FlashMenuBorder" />
+							<Setter Property="Background" Value="White" TargetName="FlashMenuBorder" />	
+							<Setter Property="Visibility" Value="Collapsed" TargetName="FilterIcon" />
+							<Setter Property="Opacity" Value="0.8" TargetName="TextContent" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type FilterPresetSelector}">
+        <Setter Property="Focusable" Value="False" />
+        <Setter Property="Width" Value="{StaticResource DesignWidth}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type FilterPresetSelector}">
+                    <ItemsControlEx x:Name="PART_ItemsFilterPresets" Focusable="False"
+                                    KeyboardNavigation.DirectionalNavigation="Once"
+                                    HorizontalLayout="True" HorizontalAlignment="Center">
+                        <ItemsControl.ItemsPanel>                            
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" >
+
+                            <StackPanel.Style>
+                                <Style>
+                                    <Setter Property="ItemsControl.MaxWidth" Value="{StaticResource DesignWidth}"/>
+                                    <Style.Triggers>
+
+                                                    <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="True">
+                                                        <Setter Property="ItemsControl.MaxWidth" Value="1760" />
+                                                    </DataTrigger>
+
+
+                                                    <DataTrigger Binding="{Binding ElementName=ChangeViewButton, Path=IsChecked}" Value="False">
+                                                        <Setter Property="ItemsControl.MaxWidth" Value="870" />
+                                                    </DataTrigger>
+
+                                    </Style.Triggers>                                
+				</Style>
+                            </StackPanel.Style>
+			</StackPanel>
+
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.Template>
+                            <ControlTemplate>
+                                <ScrollViewer Focusable="False"
+                                              HorizontalScrollBarVisibility="Hidden"
+                                              VerticalScrollBarVisibility="Disabled"
+                                              CanContentScroll="True">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </ItemsControl.Template>
+                    </ItemsControlEx>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
