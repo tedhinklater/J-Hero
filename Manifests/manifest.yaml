@@ -1,5 +1,14 @@
 AddonId: J-Hero_c0fabc1d-aadb-41e8-be6c-82e27147f6e4
 Packages:
+  - Version: 1.3
+    RequiredApiVersion: 2.4.0
+    ReleaseDate: 2023-02-01
+    PackageUrl: https://github.com/Jhanlon95/J-Hero/releases/download/v1.3/J-Hero_c0fabc1d-aadb-41e8-be6c-82e27147f6e4_1_3.pthm
+    Changelog:
+          - Added HowLongToBeat info in Game Details
+          - Altered animation when entering game details
+          - Moved platform icon and friends up slightly to give achievements more room to breathe
+          - Tweaks to information positioning in Game Details
   - Version: 1.2
     RequiredApiVersion: 2.4.0
     ReleaseDate: 2023-02-01
