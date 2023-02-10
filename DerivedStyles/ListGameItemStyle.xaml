@@ -1,9 +1,9 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     mc:Ignorable="d">
-
     <Style x:Key="ListGameItemStyle" TargetType="ListBoxItem">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -12,110 +12,72 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-
-
-
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
-
                     <ControlTemplate.Resources>
-
                         <Storyboard x:Key="FocusedOn">
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX" BeginTime="0:0:0"
                                              To="1.10" Duration="0:0:0.25"/>
-
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX" BeginTime="0:0:0.25"
                                              To="1.06" Duration="0:0:0.1"/>
-
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY" BeginTime="0:0:0"
                                              To="1.10" Duration="0:0:0.25"/>
-
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY" BeginTime="0:0:0.25"
                                              To="1.06" Duration="0:0:0.1"/>
-
-
                         </Storyboard>
-
-
                         <Storyboard x:Key="FocusedOff" >
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleX"
                                              To="1" Duration="0:0:0.2" />
-
                             <DoubleAnimation Storyboard.TargetName="ScaleTransform"
                                              Storyboard.TargetProperty="ScaleY"
                                              To="1" Duration="0:0:0.2" />
-
-
                         </Storyboard>
-
-
-
                     </ControlTemplate.Resources>
-
-                    <Grid Margin="{Settings FullscreenItemSpacingMargin}" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="True" >
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="10*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.CacheMode>
-                            <BitmapCache  EnableClearType="False"
-                              			RenderAtScale="1"
-                              			SnapsToDevicePixels="False" />
-                        </Grid.CacheMode>
-
-
-                        <Grid.RenderTransform>
-                            <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
-                        </Grid.RenderTransform>
-
-                        <ContentPresenter />
-
-
-                        <Border x:Name="MainBorder" Opacity="0" BorderThickness="6" Margin="-6" CornerRadius="10" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" 
-							Visibility="Collapsed" >
-                        </Border>
-
-                        <Border x:Name="FlashFocus" Opacity="0" CornerRadius="0" Style="{DynamicResource AnimatedFlashFocus}" Tag="False" Visibility="Collapsed" />
-                        <Border x:Name="FlashCover" Opacity="0" Style="{DynamicResource AnimatedFlashCover}" CornerRadius="5" Tag="False" Visibility="Collapsed" />
-                        <Border x:Name="GameTitleBackground" CornerRadius="5" Margin="-1" Background="{DynamicResource GameTitleBrush}" Height="150" Opacity="0.6" VerticalAlignment="Bottom" Visibility="Collapsed">
-                        </Border>
-
-
-
-                        <StackPanel VerticalAlignment="Bottom" Margin="12,15" Panel.ZIndex="1" >
-
-                            <TextBlock x:Name="GameTitle" Visibility="Collapsed" Text="{Binding DisplayName}" TextTrimming="WordEllipsis"
-						Style="{DynamicResource TextBlockBaseStyle}"
-						FontSize="{DynamicResource FontSizeSmall}"
-						VerticalAlignment="Bottom"
-						TextAlignment="Left" Margin="0,6,0,0"  />
-
-                        </StackPanel>
-
+                    <Grid Margin="-50,0,50,0">
+                        <Grid Margin="{Settings FullscreenItemSpacingMargin}" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="True" HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.CacheMode>
+                                <BitmapCache  EnableClearType="False"
+                              			    RenderAtScale="1"
+                              			    SnapsToDevicePixels="False" />
+                            </Grid.CacheMode>
+                            <Grid.RenderTransform>
+                                <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
+                            </Grid.RenderTransform>
+                            <ContentPresenter />
+                            <Border x:Name="MainBorder" Opacity="0" BorderThickness="6" Margin="-6" CornerRadius="10" Style="{DynamicResource AnimatedBorderBrush}" Tag="False" 
+							    Visibility="Collapsed" ></Border>
+                            <Border x:Name="FlashFocus" Opacity="0" CornerRadius="0" Style="{DynamicResource AnimatedFlashFocus}" Tag="False" Visibility="Collapsed" />
+                            <Border x:Name="FlashCover" Opacity="0" Style="{DynamicResource AnimatedFlashCover}" CornerRadius="5" Tag="False" Visibility="Collapsed" />
+                            <Border x:Name="GameTitleBackground" CornerRadius="5" Margin="-1" Background="{DynamicResource GameTitleBrush}" Height="150" Opacity="0.6" VerticalAlignment="Bottom" Visibility="Collapsed"></Border>
+                            <StackPanel VerticalAlignment="Bottom" Margin="12,15" Panel.ZIndex="1" >
+                                <TextBlock x:Name="GameTitle" Visibility="Collapsed" Text="{Binding DisplayName}" TextTrimming="WordEllipsis"
+						    Style="{DynamicResource TextBlockBaseStyle}"
+						    FontSize="{DynamicResource FontSizeSmall}"
+						    VerticalAlignment="Bottom"
+						    TextAlignment="Left" Margin="0,6,0,0"  />
+                            </StackPanel>
+                        </Grid>
                     </Grid>
-
                     <ControlTemplate.Triggers>
-
-
                         <DataTrigger Binding="{Settings Fullscreen.ShowGameTitles}" Value="True">
                             <Setter Property="Opacity" Value="1" TargetName="GameTitleBackground" />
                             <Setter Property="Visibility" Value="Visible" TargetName="GameTitleBackground" />
                             <Setter Property="Visibility" Value="Visible" TargetName="GameTitle" />
                         </DataTrigger>
-
                         <Trigger Property="IsFocused" Value="True">
                             <Setter Property="Tag" Value="True" TargetName="FlashFocus" />
                             <Setter Property="Tag" Value="True" TargetName="FlashCover" />
@@ -124,18 +86,13 @@
                             <Setter Property="Visibility" Value="Visible" TargetName="FlashFocus" />
                             <Setter Property="Visibility" Value="Visible" TargetName="FlashCover" />
                             <Setter Property="Canvas.ZIndex" Value="90" />
-
-
                             <Trigger.ExitActions>
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOff}" />
                             </Trigger.ExitActions>
                             <Trigger.EnterActions>
                                 <BeginStoryboard Storyboard="{StaticResource FocusedOn}" />
                             </Trigger.EnterActions>
-
                         </Trigger>
-
-
                         <Trigger Property="IsFocused" Value="False">
                             <Setter Property="Tag" Value="False" TargetName="FlashFocus" />
                             <Setter Property="Tag" Value="False" TargetName="FlashCover" />
@@ -143,13 +100,7 @@
                             <Setter Property="Visibility" Value="Collapsed" TargetName="MainBorder" />
                             <Setter Property="Visibility" Value="Collapsed" TargetName="FlashFocus" />
                             <Setter Property="Visibility" Value="Collapsed" TargetName="FlashCover" />
-
-
                         </Trigger>
-
-
-
-
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
