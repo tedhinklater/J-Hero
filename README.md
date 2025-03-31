@@ -1,5 +1,7 @@
 # J-Hero
 
+Font - [Exo 2](https://github.com/tedhinklater/J-Hero/blob/main/Fonts/Exo2-VariableFont_wght.ttf)
+
 ![Screenshot 2025-03-31 074010](https://github.com/user-attachments/assets/0b9dd965-7e11-48f7-bb09-6f489411bb3a)
 
 ![Screenshot 2025-03-31 074226](https://github.com/user-attachments/assets/c07050f8-fba0-4681-9534-fe4aa60e3f55)
