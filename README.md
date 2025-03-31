@@ -1,9 +1,7 @@
 # J-Hero
 
-This is a further mod of McHero by seannuh. Tweaked to how I would like things to be laid out, mainly planning on using it for my Steam Deck
+![Screenshot 2025-03-31 074010](https://github.com/user-attachments/assets/0b9dd965-7e11-48f7-bb09-6f489411bb3a)
 
-It is also possible to add logos to the filter tabs by following this guide - https://github.com/Jhanlon95/J-Hero/blob/main/Adding%20logos%20to%20filters.md
+![Screenshot 2025-03-31 074226](https://github.com/user-attachments/assets/c07050f8-fba0-4681-9534-fe4aa60e3f55)
 
-![picture alt](https://github.com/Jhanlon95/J-Hero/blob/main/MEDIA/screen1.jpg)
-![picture alt](https://github.com/Jhanlon95/J-Hero/blob/main/MEDIA/screen2.jpg)
-![picture alt](https://github.com/Jhanlon95/J-Hero/blob/main/MEDIA/screen3.png)
+![Screenshot 2025-03-31 074301](https://github.com/user-attachments/assets/906a81cf-8885-46f9-83ab-21d2a26e08b5)
