@@ -4,6 +4,6 @@ Font - [Exo 2](https://github.com/tedhinklater/J-Hero/blob/main/Fonts/Exo2-Varia
 
 ![Screenshot 2025-04-07 112745](https://github.com/user-attachments/assets/785443cb-d771-4a7f-be0f-c102274b1766)
 
-![Screenshot 2025-04-07 112906](https://github.com/user-attachments/assets/ccb330a3-c9e6-46cb-b309-6c00ae19ca4e)
+![Screenshot 2025-04-07 143429](https://github.com/user-attachments/assets/b22511c5-63a9-4399-b260-6ce33e39717a)
 
-![Screenshot 2025-03-31 074301](https://github.com/user-attachments/assets/906a81cf-8885-46f9-83ab-21d2a26e08b5)
+![unknown_2025 04 07-14 37_1-ezgif com-optimize](https://github.com/user-attachments/assets/ae31bfb0-8a1e-4ba4-ae00-6eae36ec91b3)
